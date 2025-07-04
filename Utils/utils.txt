@@ -1,0 +1,88 @@
+Recicables
+
+____FutureBuilder__
+         if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text("No hay eventos que mostrar"));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, i) {
+                final event = snapshot.data![i];
+                return TileEvent(
+_______________________________________________________
+
+            /*  return ListView(
+              children: snapshot.data!
+                  .map(
+                    (event) => TileEvent(
+                      event: event,
+                      onEdit: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditEventPage(event: event),
+                          ),
+                        );
+
+                        if (result == true) {
+                          _refreshlist();
+                        }
+                      },
+                      onDelete: () async {
+                        await DatabaseHelper().deletebook(event.id);
+                        _refreshlist();
+                      },
+                    ),
+                  )
+                  .toList(),
+            ); */
+	
+
+___Alert Dialog
+
+final result = await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Confirmación"),
+                        content: Text(
+                          "¿Esta seguro de eliminar el registro seleccionado?",
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, false);
+                            },
+                            child: Text("Cancelar"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, true);
+                            },
+                            child: Text("Eliminar"),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    if (result == true) {
+                      DatabaseHelper().deleteEvent(event.id);
+                      _refreshlist();
+                    }
+
+
+_______________Switch case
+    Color colorchip;
+
+    switch (event.location.toLowerCase()) {
+      case "":
+        colorchip = Colors.lightBlue;
+      case "":
+        colorchip = Colors.pink;
+      default:
+        colorchip = Colors.lightBlue;
+    }
+	

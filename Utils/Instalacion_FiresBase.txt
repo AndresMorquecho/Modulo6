@@ -1,0 +1,143 @@
+FireBase - Console:
+    |_ https://firebase.google.com/
+    |_ Creación de base de datos (Firestore: colección + documentos)
+
+Conectarse a Firebase:
+    |_ https://firebase.flutter.dev/
+    |_ Get Started
+        |_ Desde el proyecto Flutter, en la terminal escribir:
+            |_ flutter pub add firebase_core
+        |_ Esto agregará en el archivo pubspec.yaml:
+            |_ dependencies:
+                |_ firebase_core: ^3.14.0
+
+Instalar Firebase CLI:
+    |_ https://firebase.google.com/docs/cli?hl=es-419
+    |_ Seleccionar Windows
+        |_ Requiere npm instalado
+        |_ Abrir CMD como administrador
+            |_ npm install -g firebase-tools
+                |_ (Opcional: aceptar recomendaciones para actualizar npm)
+            |_ Cerrar consola
+
+    |_ Nueva consola CMD
+        |_ Verificar instalación:
+            |_ firebase --version
+        |_ Iniciar sesión:
+            |_ firebase login
+            |_ Abrirá el navegador para iniciar sesión en tu cuenta Google
+            |_ Confirmación de login exitoso en la consola
+
+Activar FlutterFire CLI dentro del proyecto:
+    |_ En la terminal del proyecto Flutter:
+        |_ dart pub global activate flutterfire_cli
+            |_ Copiar PATH si te aparece un warning y agregarlo a las variables de entorno (PATH)
+
+    |_ Nueva terminal:
+        |_ flutterfire configure
+            |_ Seleccionar proyecto Firebase
+            |_ Seleccionar plataformas (Android/iOS/Web)
+            |_ Se generará el archivo: firebase_options.dart
+
+Probar la conexión al proyecto:
+    |_ En tu archivo main.dart importar:
+        |_ import 'package:firebase_core/firebase_core.dart';
+        |_ import 'firebase_options.dart';
+
+    |_ Reemplazar main() con lo siguiente:
+
+        void main() async {
+            WidgetsFlutterBinding.ensureInitialized();
+            await Firebase.initializeApp(
+              options: DefaultFirebaseOptions.currentPlatform,
+            );
+            runApp(const MainApp());
+        }
+
+Conectarse a Firestore (base de datos en la nube):
+    |_ https://pub.dev/packages/cloud_firestore/install
+    |_ En pubspec.yaml agregar:
+        |_ dependencies:
+            |_ cloud_firestore: ^5.6.11
+
+    |_ Luego en terminal:
+        |_ flutter pub get
+
+_____________ FIRE BASE YA INSTALADO______________________
+CMD
+|_______
+    |_ Verificar si Firebase CLI ya está instalado:
+        |_ firebase --version
+            |_ Si muestra la versión → ¡Todo listo!
+            |_ Si no → seguir notas de instalación
+
+    |_ (Opcional) Cerrar sesión actual:
+        |_ firebase logout
+
+    |_ Iniciar sesión con tu cuenta de Google:
+        |_ firebase login
+            |_ Se abre un link → ábrelo en navegador
+            |_ Inicia sesión en tu cuenta
+            |_ Aparece mensaje: logeado con éxito (correo@.com)
+
+Terminal del proyecto (carpeta donde está tu Flutter App)
+|_______
+    |_ Instalar firebase_core (2 veces por si acaso):
+        |_ flutter pub add firebase_core
+            |_ Verificar en pubspec.yaml:
+                |_ dependencies:
+                    |_ firebase_core: ^3.15.1
+
+    |_ Activar CLI de Firebase para Flutter:
+        |_ dart pub global activate flutterfire_cli
+
+    |_ Configurar conexión al proyecto Firebase:
+        |_ flutterfire configure
+            |_ Selecciona tu proyecto Firebase
+            |_ Selecciona plataformas (ej. Android)
+            |_ Se genera automáticamente:
+                |_ firebase_options.dart
+
+Probar conexión desde tu app (main.dart)
+|_______
+    |_ Importar:
+        |_ import 'package:firebase_core/firebase_core.dart';
+        |_ import 'firebase_options.dart';
+
+    |_ Reemplazar `main()` con lo siguiente:
+
+        void main() async {
+          WidgetsFlutterBinding.ensureInitialized();
+          await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform,
+          );
+          runApp(const MainApp());
+        }
+
+Conectarse a Firestore (base de datos en la nube):
+|_______
+    |_ Visitar: https://pub.dev/packages/cloud_firestore/install
+    |_ Agregar en pubspec.yaml:
+        |_ dependencies:
+            |_ cloud_firestore: ^5.6.11
+
+    |_ En terminal:
+        |_ flutter pub get
+__________________________________________________________________________
+firebase --version             # Verificar instalación
+firebase logout                # (Opcional) Cerrar sesión
+firebase login                 # Iniciar sesión
+
+flutter pub add firebase_core  # Ejecutar dos veces por si acaso
+dart pub global activate flutterfire_cli
+flutterfire configure
+
+flutter pub get                # Obtener paquetes después de editar pubspec.yaml
+
+________
+dependencies:
+  firebase_core: ^3.15.1
+  cloud_firestore: ^5.6.11 manual 
+
+
+

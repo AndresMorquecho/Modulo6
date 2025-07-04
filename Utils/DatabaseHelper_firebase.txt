@@ -1,0 +1,41 @@
+
+___________DatabaseHelper_firebase_______________________
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event/models/event.dart';
+
+class DatabaseHelper {
+  static final FirebaseFirestore _firebaseFirestore =
+      FirebaseFirestore.instance;
+
+  static final CollectionReference collectionReference = _firebaseFirestore
+      .collection('envet');
+
+  Future<void> insertevent(Event evet) async {
+    await collectionReference.add(evet.toMap());
+  }
+
+  Future<List<Event>> getevents() async {
+    final snapshot = await collectionReference.get();
+    return snapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+
+      return Event(
+        id: doc.id,
+        eventName: data["eventname"] ?? "",
+        date: data["date"] ?? "",
+        location: data["location"] ?? "",
+        ticketPrice: data["ticketPrice"] ?? "",
+        attendees: data["attendees"] ?? "",
+      );
+    }).toList();
+  }
+
+  Future<void> updateEvent(Event event) async {
+    await collectionReference.doc(event.id).update(event.toMap());
+  }
+
+  Future<void> deletebook(String id) async {
+    await collectionReference.doc(id).delete();
+  }
+}
